@@ -258,9 +258,9 @@ public class LibraryManagementSystem {
         if (member == null) return;
 
         // Find active loans for this member
-        ArrayList<LoanRecord> activeLoans = new ArrayList<>();
+        ArrayList<LoanRecord> activeLoans = new ArrayList<>(); // to store the active loans for the found member
         for (LoanRecord loan : loans) {
-            if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) {
+            if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) { // Make sure it is not returned
                 activeLoans.add(loan);
             }
         }
@@ -301,11 +301,11 @@ public class LibraryManagementSystem {
 
         if (currentDate.after(bookLoan.getDueDate())) {
             long diff = currentDate.getTime() - bookLoan.getDueDate().getTime();
-            daysOverdue = diff / (1000 * 60 * 60 * 24);
+            daysOverdue = diff / (1000 * 60 * 60 * 24); //milliseconds to days
         }
 
         if (daysOverdue > 0) {
-            double fine = 0.50 * daysOverdue * bookLoan.getQuantity();
+            double fine = 0.50 * daysOverdue * bookLoan.getQuantity(); // RM 0.50 per day per book quantity
             System.out.printf("Book is overdue by %d days. Fine: RM%.2f\n", daysOverdue, fine);
             System.out.println("Pay with: 1. Points | 2. Cash");
             int payChoice = getUserChoice();
@@ -335,7 +335,7 @@ public class LibraryManagementSystem {
             generateReceipt("Book Return", member.getName(), 0.0);
         }
 
-        bookLoan.setReturned(true);
+        bookLoan.setReturned(true);// Marked True if completed
         System.out.println("Book '" + bookLoan.getItemTitle() + "' has been successfully returned.");
     }
 

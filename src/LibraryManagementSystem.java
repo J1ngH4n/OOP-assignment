@@ -287,14 +287,6 @@ public class LibraryManagementSystem {
         }
     }
 
-    private static void processReturn(LibraryMember member, LoanRecord loan) {
-        if (loan instanceof PhysicalBookLoan bookLoan) {
-            processPhysicalBookReturn(member, bookLoan);
-        } else if (loan instanceof DigitalAccessResource digitalResource) {
-            processDigitalResourceReturn(member, digitalResource);
-        }
-    }
-
     private static void processPhysicalBookReturn(LibraryMember member, PhysicalBookLoan bookLoan) {
         long daysOverdue = 0;
         Date currentDate = new Date();

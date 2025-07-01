@@ -281,7 +281,12 @@ public class LibraryManagementSystem {
         int choice = getUserChoice();
 
         if (choice > 0 && choice <= activeLoans.size()) {
-            processReturn(member, activeLoans.get(choice - 1));
+            LoanRecord loan = activeLoans.get(choice - 1);
+            if (loan instanceof PhysicalBookLoan bookLoan) {
+                processPhysicalBookReturn(member, bookLoan);
+            } else if (loan instanceof DigitalAccessResource digitalResource) {
+                processDigitalResourceReturn(member, digitalResource);
+            }
         } else if (choice != 0) {
             System.out.println("Invalid loan selection.");
         }

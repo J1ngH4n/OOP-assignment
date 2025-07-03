@@ -9,8 +9,6 @@ import java.util.Scanner;
 
 public class LibraryManagementSystem {
 
-
-
     private static ArrayList<LibraryMember> members = new ArrayList<>();
     private static ArrayList<LoanRecord> loans = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
@@ -42,7 +40,7 @@ public class LibraryManagementSystem {
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("Invalid option. Please try again...");
             }
 
             if (running) {
@@ -50,12 +48,12 @@ public class LibraryManagementSystem {
                 scanner.nextLine();
             }
         }
-        System.out.println("Exiting... Goodbye!");
-        scanner.close();
+        System.out.println("Program Exited");
+
     }
 
     private static void displayMainMenu() {
-        System.out.println("\n--- Library Management System ---");
+        System.out.println("====Library Management System===");
         System.out.println("1. New Member Registration");
         System.out.println("2. Borrow / Access Resources");
         System.out.println("3. Manage Member Account (Top Up)");
@@ -65,9 +63,9 @@ public class LibraryManagementSystem {
     }
 
     private static int getUserChoice() {
-        System.out.print("Select an option >> ");
+        System.out.print("Please Select an Option: ");
         try {
-            int choice = scanner.nextInt();
+            int choice = scanner.nextInt(); //  Need to consume new line
             scanner.nextLine();
             return choice;
         } catch (InputMismatchException e) {
@@ -77,7 +75,7 @@ public class LibraryManagementSystem {
         }
     }
 
-    //Method 1
+    //Option 1
     private static void registerNewMember() {
         System.out.println("\n--- New Member Registration ---");
         System.out.print("Enter member's full name: ");
@@ -85,7 +83,7 @@ public class LibraryManagementSystem {
 
         if (name.isEmpty()) {
             System.out.println("Error: Name cannot be empty.");
-            return;
+            return; //Exit the method if invalid
         }
 
         LibraryMember newMember = new LibraryMember(name);
@@ -94,13 +92,13 @@ public class LibraryManagementSystem {
         System.out.println("Starting credit points: " + newMember.getCreditPoints());
     }
 
-    //Method 2
+    //Option 2
     private static void borrowOrAccessResources() {
         LibraryMember member = findMember();
-        if (member == null) return;
+        if (member == null) return; // exit
 
         System.out.println("\nChoose resource type:");
-        System.out.println("1. Borrow Physical Book | 2. Access Digital Resource");
+        System.out.println("1. Borrow Physical Book \n2. Access Digital Resource");
         int choice = getUserChoice();
 
         if (choice == 1) {
@@ -112,16 +110,16 @@ public class LibraryManagementSystem {
         }
     }
 
-    //Method 3
+    //Connect to option  2
     private static void borrowPhysicalBook(LibraryMember member) {
-        System.out.println("\n--- Available Books ---");
+        System.out.println("--- Available Books ---");
         System.out.println("1. How Money Works");
         System.out.println("2. Dive into Design Patterns");
         System.out.println("3. Hello Algo");
         System.out.println("4. Grokking Algorithms");
         System.out.println("5. a random walk down wall street");
 
-        System.out.print("Select book number to borrow (1-5) >> ");
+        System.out.print("Select book number to borrow (1-5): ");
         int bookChoice = getUserChoice();
 
         String bookTitle;
@@ -154,78 +152,78 @@ public class LibraryManagementSystem {
         }
 
         PhysicalBookLoan newLoan = new PhysicalBookLoan(member.getMemberID(), 1, bookTitle, shelfLocation);
-        loans.add(newLoan);
+        loans.add(newLoan); // Stored the loan to the array list
         System.out.println("Successfully borrowed '" + bookTitle + "'.");
         System.out.println("Due date: " + newLoan.getDueDate());
         System.out.println("Shelf location: " + newLoan.getShelfLocation());
     }
-
+    // connect to option2
     private static void accessDigitalResource(LibraryMember member) {
-        System.out.println("\n--- Available Digital Resources ---");
+        System.out.println("--- Available Digital Resources ---");
         System.out.println("1. Discrete Mathematics");
         System.out.println("2. computing essentials");
         System.out.println("3. JavaScript JQuery Jon Duckett");
         System.out.println("4. Designing Data-Intensive Applications");
         System.out.println("5. Head First Design Patterns");
 
-        System.out.print("Select resource number to access (1-5) >> ");
+        System.out.print("Number to access (1-5) \n");
         int resChoice = getUserChoice();
 
-        String resTitle;
-        String resLink;
-        int resDuration;
+        String digitalTitle;
+        String accessLink;
+        int accessDurationDays;
 
         switch (resChoice) {
             case 1:
-                resTitle = "Discrete Mathematics";
-                resLink = "https://library.example.com/Discrete-Mathematics";
-                resDuration = 30;
+                digitalTitle = "Discrete Mathematics";
+                accessLink = "https://library.com/Discrete-Mathematics";
+                accessDurationDays = 30;
                 break;
             case 2:
-                resTitle = "computing essentials";
-                resLink = "https://library.example.com/computing-essentials";
-                resDuration = 60;
+                digitalTitle = "computing essentials";
+                accessLink = "https://library.com/computing-essentials";
+                accessDurationDays = 60;
                 break;
             case 3:
-                resTitle = "JavaScript JQuery Jon Duckett";
-                resLink = "https://library.example.com/JavaScript-JQuer-Jon-Duckett";
-                resDuration = 45;
+                digitalTitle = "JavaScript JQuery Jon Duckett";
+                accessLink = "https://library.com/JavaScript-JQuer-Jon-Duckett";
+                accessDurationDays = 45;
                 break;
             case 4:
-                resTitle = "Designing Data-Intensive Applications";
-                resLink = "https://library.example.com/Designing-Data-Intensive-Applications";
-                resDuration = 90;
+                digitalTitle = "Designing Data-Intensive Applications";
+                accessLink = "https://library.com/Designing-Data-Intensive-Applications";
+                accessDurationDays = 90;
                 break;
             case 5:
-                resTitle = "Head First Design Patterns";
-                resLink = "https://library.example.com/Head-First-Design-Pattern";
-                resDuration = 120;
+                digitalTitle = "Head First Design Patterns";
+                accessLink = "https://library.com/Head-First-Design-Pattern";
+                accessDurationDays = 120;
                 break;
             default:
                 System.out.println("Invalid resource choice.");
                 return;
         }
 
-        int fee = 200; // RM2.00 fee (200 points = RM2.00)
-        if (member.deductCreditPoints(fee)) {
-            DigitalAccessResource newAccess = new DigitalAccessResource(member.getMemberID(), resTitle, resLink, resDuration);
+        int fee = 200; // RM2.00 fee (200 points = RM2.00) Flat fee
+        if (member.deductCreditPoints(fee)) { // Check if the membeer has enough credit from Library Member class(method)
+            DigitalAccessResource newAccess = new DigitalAccessResource(member.getMemberID(), digitalTitle, accessLink, accessDurationDays);
             loans.add(newAccess);
-            System.out.println("Access granted to '" + resTitle + "'.");
+            System.out.println("Access granted to '" + digitalTitle + "'.");
             System.out.println("Access fee of " + fee + " points deducted.");
-            System.out.println("Access link: " + resLink);
-            System.out.println("Access duration: " + resDuration + " days");
+            System.out.println("Access link: " + accessLink);
+            System.out.println("Access duration: " + accessDurationDays + " days");
         } else {
             System.out.println("Insufficient points to access resource. Required: " + fee + " points.");
             System.out.println("Current balance: " + member.getCreditPoints() + " points.");
             System.out.println("Please use option 3 to top up your account.");
         }
     }
-
+    //Option 3
     private static void manageMemberAccount() {
         LibraryMember member = findMember();
         if (member == null) return;
 
-        System.out.println("\n--- Account Top Up ---");
+        System.out.println("--- Account Top Up ---");
         System.out.println("Current Balance: " + member.getCreditPoints() + " points.");
         System.out.println("Select amount to top up:");
         System.out.println("1. RM5.00 | 2. RM10.00 | 3. RM20.00 | 4. RM50.00");
@@ -243,7 +241,7 @@ public class LibraryManagementSystem {
                 return;
         }
 
-
+        // Transaction Fees
         double amountAfterFee = amount - 0.50;
         int pointsToAdd = (int) (amountAfterFee * 100); // RM1 = 100 points
 
@@ -252,53 +250,78 @@ public class LibraryManagementSystem {
         System.out.println("Points added: " + pointsToAdd);
         System.out.println("New balance: " + member.getCreditPoints() + " points.");
     }
-
+    //Option 4
     private static void viewAndReturnLoans() {
+        //Check for loan first
         LibraryMember member = findMember();
-        if (member == null) return;
+        if (member == null) return; // exit
 
-        // Find active loans for this member
-        ArrayList<LoanRecord> activeLoans = new ArrayList<>(); // to store the active loans for the found member
+        boolean hasActiveLoans = false;
         for (LoanRecord loan : loans) {
-            if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) { // Make sure it is not returned
-                activeLoans.add(loan);
+            if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) {
+                hasActiveLoans = true;
+                break;
             }
         }
 
-        if (activeLoans.isEmpty()) {
+        if (!hasActiveLoans) {
             System.out.println("No active loans found.");
             return;
         }
 
-        System.out.println("\n--- Your Active Loans ---");
-        for (int i = 0; i < activeLoans.size(); i++) {
-            LoanRecord loan = activeLoans.get(i);
-            System.out.println("\n--- Loan #" + (i + 1) + " (ID: " + loan.getLoanID() + ") ---");
-            System.out.println(loan.getLoanDetails());
+        System.out.println("--- Your Active Loans ---");
+
+        // Display all active loans first
+        int count = 1;
+        for (LoanRecord loan : loans) {
+            if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) { //gets loans belonging to the current member
+                if (loan instanceof PhysicalBookLoan) {
+                    PhysicalBookLoan book = (PhysicalBookLoan) loan;
+                    System.out.println(count + ". Physical Book: " + book.getItemTitle() + " (Due: " + book.getDueDate() + ")");
+                } else if (loan instanceof DigitalAccessResource) {
+                    DigitalAccessResource digital = (DigitalAccessResource) loan;
+                    System.out.println(count + ". Digital Resource: " + digital.getItemTitle() + " (Duration: " + digital.getAccessDurationDays() + " days)");
+                }
+                count++;
+            }
         }
 
-        System.out.print("\nSelect loan number to return (0 to cancel) >> ");
+        System.out.print("Select loan number to return/manage: ");
         int choice = getUserChoice();
 
-        if (choice > 0 && choice <= activeLoans.size()) {
-            LoanRecord loan = activeLoans.get(choice - 1);
-            if (loan instanceof PhysicalBookLoan bookLoan) {
-                processPhysicalBookReturn(member, bookLoan);
-            } else if (loan instanceof DigitalAccessResource digitalResource) {
-                processDigitalResourceReturn(member, digitalResource);
-            }
-        } else if (choice != 0) {
-            System.out.println("Invalid loan selection.");
-        }
-    }
+        // Find the selected loan
+        count = 1;
+        for (LoanRecord loan : loans) {
+            if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) {
+                if (count == choice) {
+                    // Found it! Now check what type it is
+                    if (loan instanceof PhysicalBookLoan) {
+                        PhysicalBookLoan book = (PhysicalBookLoan) loan;
+                        processPhysicalBookReturn(member, book);
+                        return;
+                    }
 
+                    if (loan instanceof DigitalAccessResource) {
+                        // It's a digital resource
+                        DigitalAccessResource digital = (DigitalAccessResource) loan;
+                        processDigitalResourceReturn(member, digital);
+                        return;
+                    }
+                }
+                count++;
+            }
+        }
+
+        System.out.println("That loan number doesn't exist!");
+    }
+    //Connected to option 4
     private static void processPhysicalBookReturn(LibraryMember member, PhysicalBookLoan bookLoan) {
         long daysOverdue = 0;
         Date currentDate = new Date();
 
         if (currentDate.after(bookLoan.getDueDate())) {
             long diff = currentDate.getTime() - bookLoan.getDueDate().getTime();
-            daysOverdue = diff / (1000 * 60 * 60 * 24); //milliseconds to days
+            daysOverdue = diff / (1000 * 60 * 60 * 24); //Convert milliseconds to days
         }
 
         if (daysOverdue > 0) {
@@ -336,28 +359,28 @@ public class LibraryManagementSystem {
         System.out.println("Book '" + bookLoan.getItemTitle() + "' has been successfully returned.");
     }
 
-
+    //Connected to Option 4
     private static void processDigitalResourceReturn(LibraryMember member, DigitalAccessResource digitalResource) {
-        System.out.println("\n--- Digital Resource Access Details ---");
+        System.out.println("--- Digital Resource Access Details ---");
         System.out.println("Title: " + digitalResource.getItemTitle());
         System.out.println("Access Link: " + digitalResource.getAccessLink());
         System.out.println("Access Duration: " + digitalResource.getAccessDurationDays() + " days");
         System.out.println("Resource accessed successfully.");
 
-        digitalResource.setReturned(true);
+        digitalResource.setReturned(true); //to removed from loan
         generateReceipt("Digital Resource Access", member.getName(), 0.0);
         System.out.println("Digital resource access completed.");
     }
 
-    //Bonus Part
+    //Extra
     private static void generateReceipt(String type, String memberName, double amount) {
-        String filename = "receipt_" + System.currentTimeMillis() + ".txt";
+        String filename = "receipt.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             writer.println("=== LIBRARY MANAGEMENT SYSTEM RECEIPT ===");
             writer.println("Date: " + new Date());
             writer.println("Type: " + type);
             writer.println("Member: " + memberName);
-            if (amount > 0) {
+            if (amount > 0) {// Only write if it has a fine
                 writer.printf("Amount Paid: RM%.2f%n", amount);
             }
             writer.println("Thank you for using our library services!");

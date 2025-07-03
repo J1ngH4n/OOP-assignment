@@ -7,7 +7,7 @@ public abstract class LoanRecord {
     protected boolean returned;
 
     public LoanRecord(String memberID, int quantity) {
-        this.loanID = "LOAN" + new Date().getTime();
+        this.loanID = "LOAN" + new Date().getTime(); // Generate the ID when created
         this.memberID = memberID;
         this.quantity = quantity;
         this.returned = false;

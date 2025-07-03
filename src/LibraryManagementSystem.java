@@ -294,7 +294,6 @@ public class LibraryManagementSystem {
         for (LoanRecord loan : loans) {
             if (loan.getMemberID().equals(member.getMemberID()) && !loan.isReturned()) {
                 if (count == choice) {
-                    // Found it! Now check what type it is
                     if (loan instanceof PhysicalBookLoan) {
                         PhysicalBookLoan book = (PhysicalBookLoan) loan;
                         processPhysicalBookReturn(member, book);

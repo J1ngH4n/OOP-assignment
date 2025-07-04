@@ -1,8 +1,8 @@
 import java.util.Random;
 
 public class LibraryMember {
-    private final String memberID;
-    private final String name;
+    private String memberID;
+    private String name;
     private int creditPoints;
 
     public LibraryMember(String name) {

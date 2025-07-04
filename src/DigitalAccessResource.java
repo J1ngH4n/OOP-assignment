@@ -1,7 +1,7 @@
 public class DigitalAccessResource extends LoanRecord {
-    private final String accessLink;
-    private final int accessDurationDays;
-    private final String resourceTitle;
+    private String accessLink;
+    private int accessDurationDays;
+    private String resourceTitle;
 
     public DigitalAccessResource(String memberID, String resourceTitle, String accessLink, int accessDurationDays) {
         super(memberID, 1); // one time access (Digital Access)

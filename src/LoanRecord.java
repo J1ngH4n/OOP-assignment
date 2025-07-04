@@ -1,10 +1,10 @@
 import java.util.Date;
 
 public abstract class LoanRecord {
-    protected final String loanID;
-    protected final String memberID;
-    protected final int quantity;
-    protected boolean returned;
+    private String loanID;
+    private String memberID;
+    private int quantity;
+    private boolean returned;
 
     public LoanRecord(String memberID, int quantity) {
         this.loanID = "LOAN" + new Date().getTime(); // Generate the ID when created
